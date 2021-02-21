@@ -1,5 +1,5 @@
-matrix-floppy
-=============
+matrix-floppy 💾
+===============
 
 Save your Matrix history.
 
@@ -14,19 +14,24 @@ search encrypted chat history without needing to use Element Desktop.
 Features
 --------
 
-* Media types:
-  * [x] Unencrypted messages
-  * [x] Encrypted messages
-  * [ ] Images
-  * [ ] Videos
-  * [ ] Reactions
-* Operation modes:
-  * [x] Batch
-  * [ ] Real-time client
-* Output formats:
-  * [x] HTML
-  * [ ] Plain-text
-  * [ ] JSON
+Media types:
+
+* [x] Unencrypted messages
+* [x] Encrypted messages
+* [ ] Images
+* [ ] Videos
+* [ ] Reactions
+
+Operation modes:
+
+* [x] Batch
+* [ ] Real-time client
+
+Output formats:
+
+* [x] HTML
+* [ ] Plain-text
+* [ ] JSON
 
 Installation
 ------------
@@ -37,4 +42,4 @@ this section once I've figured it out myself.
 License
 -------
 
-(C) Iain R. Learmonth 2021. See `COPYING` for permissions.
+Copyright (C) Iain R. Learmonth 2021. See `COPYING` for permissions.
