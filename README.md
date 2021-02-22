@@ -3,6 +3,9 @@ matrix-floppy 💾
 
 Save your Matrix history.
 
+[![PyPI](https://img.shields.io/pypi/v/matrix-floppy)](https://pypi.org/project/matrix-floppy/)
+[![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
+
 Motivation
 ----------
 
