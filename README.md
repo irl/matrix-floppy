@@ -39,8 +39,11 @@ Output formats:
 Installation
 ------------
 
-I've never used it before, but I'm using pipenv for this project. I'll update
-this section once I've figured it out myself.
+Use `python3 setup.py install` to install this package. You can do this
+system-wide or inside a virtualenv at your preference.
+
+For development, dependencies are managed using the `Pipfile` although a
+`requirements.txt` file is also provided, generated via a make target.
 
 License
 -------
