@@ -13,7 +13,7 @@ with open(path.join(here, 'requirements.txt'), encoding='utf-8') as f:
 
 setup(
     name="matrix-floppy",
-    version="0.1a2",
+    version="0.1a3",
     packages=find_packages(exclude=['docs']),
     scripts=["matrix-floppy.py"],
     install_requires=install_requires,
