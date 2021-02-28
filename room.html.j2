@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>{{ room_id }}</title>
+</head>
+<body>
+<h1>{{ room_id }}</h1>
+{% for ev in events %}
+<p><b>{{ ev.sender }}</b> <small>{{ ev.server_timestamp | matrix_timestamp }}</small></p>
+{% if ev | is_text %}
+  {% if ev.format is defined and ev.format == "org.matrix.custom.html" %}
+    <blockquote>{{ ev.formatted_body }}</blockquote>
+  {% else %}
+    <blockquote>{{ ev.body }}</blockquote>
+  {% endif %}
+{% else %}
+  <pre>{{ ev.source }}</pre>
+{% endif %}
+{% endfor %}
+</body>
+</html>

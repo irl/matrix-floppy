@@ -1,12 +1,18 @@
 import asyncio
 from collections import defaultdict
+from datetime import datetime
 from typing import Optional
 
+from jinja2 import Environment
+from jinja2 import FileSystemLoader
+from jinja2 import Markup
+from jinja2 import select_autoescape
 from nio import AsyncClient
 from nio import AsyncClientConfig
 from nio import Event
 from nio import MessageDirection
 from nio import MatrixRoom
+from nio import RoomMessage
 from nio import RoomMessageText
 from nio import RoomMessagesError
 from nio import SyncResponse
@@ -15,9 +21,16 @@ from nio.store import SqliteMemoryStore
 events = defaultdict(list)
 
 
+def matrix_timestamp(timestamp: int):
+    dt = datetime.fromtimestamp(timestamp / 1000)
+    return dt.isoformat()
+
+
 def event_cb(room: MatrixRoom, event: Event):
-    if isinstance(event, RoomMessageText):
-        events[room.room_id].append(event)
+    if isinstance(event, RoomMessageMedia):
+        # TODO: Download the media
+        pass
+    events[room.room_id].append(event)
 
 
 async def init(homeserver: str, username: str, password: str,
@@ -26,7 +39,7 @@ async def init(homeserver: str, username: str, password: str,
     config = AsyncClientConfig(store=SqliteMemoryStore, store_sync_tokens=True)
     client = AsyncClient(homeserver, username, config=config)
     response = await client.login(password)
-    client.add_event_callback(event_cb, RoomMessageText)
+    client.add_event_callback(event_cb, RoomMessage)
     await client.import_keys(keyfile, keyphrase)
     return client
 
@@ -57,6 +70,10 @@ async def handle_room(client: AsyncClient, room: MatrixRoom,
 
 
 async def main():
+    env = Environment(loader=FileSystemLoader('.'),
+                      autoescape=select_autoescape(['html', 'xml']))
+    env.filters['is_text'] = lambda ev: isinstance(ev, RoomMessageText)
+    env.filters['matrix_timestamp'] = matrix_timestamp
     client = await init("https://matrix.org", "irl_", "HSPASSWORD",
                         "/path/to/element-keys.txt", "KEYPASSWORD")
     sync_filter = {"room": {"timeline": {"limit": 1}}}
@@ -68,12 +85,13 @@ async def main():
         await handle_room(
             client, client.rooms[room_id],
             sync_response.rooms.join[room_id].timeline.prev_batch)
-    for room in events:
-        with open(f"saves/{room}.html", "w") as out:
-            out.write(f"<h1>{room}</h1>")
-            for ev in sorted(events[room], key=lambda x: x.server_timestamp):
-                if isinstance(ev, RoomMessageText):
-                    out.write(f"<p>{ev.sender}: {ev.body}</p>")
+    for room_id in events:
+        with open(f"saves/{room_id}.html", "w") as out:
+            tmpl = env.get_template("room.html.j2")
+            out.write(
+                tmpl.render(room_id=room_id,
+                            events=sorted(events[room_id],
+                                          key=lambda x: x.server_timestamp)))
     await client.close()
 
 
