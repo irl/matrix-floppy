@@ -8,5 +8,8 @@ name = "pypi"
 [requires]
 python_version = "3.9"
 
+[packages]
+jinja2 = "*"
+
 [packages.matrix-nio]
 extras = [ "e2e",]
