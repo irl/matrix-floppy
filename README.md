@@ -17,18 +17,30 @@ search encrypted chat history without needing to use Element Desktop.
 Features
 --------
 
-Media types:
+Metadata:
 
+* [ ] User nicknames
+* [ ] User avatars
+* [ ] Room aliases
+* [ ] Room avatars
+
+Event/media types:
+
+* [ ] Joins/parts/kicks
 * [x] Unencrypted messages
 * [x] Encrypted messages
+* [x] Formatted messages (HTML)
 * [ ] Images
 * [ ] Videos
+* [ ] Audios
 * [ ] Reactions
+* [ ] Bad/Unknown Events
 
 Operation modes:
 
 * [x] Batch
 * [ ] Real-time client
+* [ ] Real-time application service
 
 Output formats:
 
