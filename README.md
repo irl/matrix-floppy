@@ -24,17 +24,19 @@ Metadata:
 * [ ] Room aliases
 * [ ] Room avatars
 
-Event/media types:
+Event/media:
 
-* [ ] Joins/parts/kicks
-* [x] Unencrypted messages
-* [x] Encrypted messages
-* [x] Formatted messages (HTML)
-* [ ] Images
-* [ ] Videos
-* [ ] Audios
-* [ ] Reactions
-* [ ] Bad/Unknown Events
+| Type                    | Unencrypted | Encrypted |
+|-------------------------|-------------|-----------|
+| Joins/parts/kicks       | [ ]         | [ ]       |
+| Plain text messages     | [x]         | [x]       |
+| Formatted messages      | [x]         | [x]       |
+| Images                  | [x]         | [ ]       |
+| Videos                  | [x]         | [ ]       |
+| Audios                  | [x]         | [ ]       |
+| Files                   | [ ]         | [ ]       |
+| Reactions               | [ ]         | [ ]       |
+| Bad/Unknown Events      | [ ]         | [ ]       |
 
 Operation modes:
 

@@ -6,12 +6,23 @@
 <h1>{{ room_id }}</h1>
 {% for ev in events %}
 <p><b>{{ ev.sender }}</b> <small>{{ ev.server_timestamp | matrix_timestamp }}</small></p>
-{% if ev | is_text %}
-  {% if ev.format is defined and ev.format == "org.matrix.custom.html" %}
+{% if ev | is_formatted and ev.format == "org.matrix.custom.html" %}
     <blockquote>{{ ev.formatted_body }}</blockquote>
-  {% else %}
+{% elif ev | is_text %}
     <blockquote>{{ ev.body }}</blockquote>
-  {% endif %}
+{% elif ev | is_audio %}
+  <p>
+    <audio controls>
+      <source src="{{ ev.url | matrix_media_path }}" />
+    </audio>
+  </p>
+  <blockquote>{{ ev.body }}</blockquote>
+{% elif ev | is_image %}
+  <p><img src="{{ ev.url | matrix_media_path }}" /></p>
+  <blockquote>{{ ev.body }}</blockquote>
+{% elif ev | is_video %}
+  <p><video src="{{ ev.url | matrix_media_path }}" controls /></p>
+  <blockquote>{{ ev.body }}</blockquote>
 {% else %}
   <pre>{{ ev.source }}</pre>
 {% endif %}
